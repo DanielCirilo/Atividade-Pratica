@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRABALHO</title>
+</head>
+<body>
+<%
+    let erroValidacao = {"nome":"", "valorCompra":"", "cpf":""};
+    let msgErro = {"nome":"", "valorCompra":"", "cpf":""};
+    if(erros) {
+        erros.errors.forEach(function(erro){
+            if(erro.path == "nome"){
+                erroValidacao.nome = "erro",
+                msgErro.nome = erro.msg
+            }
+            if(erro.path == "valorCompra"){
+                erroValidacao.valorCompra = "erro",
+                msgErro.valorCompra = erro.msg
+            }
+            if(erro.path == "cpf"){
+                erroValidacao.cpf = "erro",
+                msgErro.cpf = erro.msg
+            }
+        })
+    }; %>
+ 
+    <h1></h1>
+<form action="/classificar" method="post">
+<label for="nome">Digite seu nome:</label> <br>
+<input type="text" name="nome" id="nome" value="<%= valores.nome %>"> <br>
+<span><%= msgErro.nome %></span><br>
+<label for="valorCompra">Digite o valor da compra:</label> <br>
+<input type="text" name="valorCompra" id="valorCompra" value="<%= valores.valorCompra %>"> <br>
+<span><%= msgErro.valorCompra %></span><br>
+ 
+        <label for="cpf">Digite o seu CPF:</label> <br>
+<input type="text" name="cpf" id="cpf" value="<%= valores.cpf %>"> <br>
+<span><%= msgErro.cpf %></span><br>
+ 
+        <button type="submit">Enviar</button>
+</form>
+ 
+ 
+    <% 
+        if(resultado){
+            // - chegou dados do servidor
+        %>
+<h2>Nome: <%= resultado.nome %>    </h2>
+<h2>Valor da compra: <%= resultado.valorCompra %>    </h2>
+<h2>CPF: <%= resultado.cpf %>    </h2>
+<h2>porcentagem: <%= resultado.porcentagem %>    </h2>
+<h2>valorDesconto: <%= resultado.valorDesconto %>    </h2>
+<h2>valorFinal: <%= resultado.valorFinal %>    </h2>
+<%
+        }else{
+            // - não chegou dados do servidor
+        %>
+<h2>Não temos dados retornando do servidor</h2>
+<%
+        }
+    %>
+ 
+ 
+</body>
+</html>
